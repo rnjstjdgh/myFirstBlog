@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml"><head>
+    <meta charset="UTF-8">
+    <title>DailyLifeShow</title>
+    <link rel="stylesheet" , href="/CSS/index.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"/>
+
+    <script src="/JS/jquery-3.4.1.min.js"></script>
+
+    <!--Load HTML Files-->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#header").load("header");
+            $("#leftSidebar").load("leftSidebar");
+        });
+    </script>
+</head>
+<body>
+<div id="header"></div>
+<div class="contents">
+    <div id="leftSidebar"></div>
+    <div class="main-contents-container">
+        <div class="main-contents">
+            <!-- ------------------Content-------------------------------- -->
+            <h1>DailyLifeShow</h1>
+
+            <h2 th:text="${dailyLifeContentDto.title}"></h2>
+            <p th:inline="text">작성일 : [[${#temporals.format(dailyLifeContentDto.createDate, 'yyyy-MM-dd HH:mm')}]]</p>
+
+            <p th:text="${dailyLifeContentDto.content}"></p>
+
+            <!-- 수정/삭제 -->
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <a th:href="@{'/DailyLife/DailyLifeModify/' + ${dailyLifeContentDto.id}}">
+                    <button>수정</button>
+                </a>
+
+                <form id="delete-form" th:action="@{'/DailyLife/DailyLifeDelete/' + ${dailyLifeContentDto.id}}" method="get">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button id="delete-btn">삭제</button>
+                </form>
+            </div>
+
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                var dailyLifeContentDto = /*[[${dailyLifeContentDto}]]*/ "";
+                /*]]>*/
+            </script>
+            <script th:inline="javascript" th:src="@{/js/board.js}"></script>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>StudyCreate</title>
+    <link rel="stylesheet" , href="/CSS/index.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"/>
+
+    <script src="/JS/jquery-3.4.1.min.js"></script>
+    <script src="/JS/CreateContent.js"></script>
+
+    <!--Load HTML Files-->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#header").load("header");
+            $("#leftSidebar").load("leftSidebar");
+        });
+    </script>
+</head>
+<body>
+<div id="header"></div>
+<div class="contents">
+    <div id="leftSidebar"></div>
+    <div class="main-contents-container">
+        <div class="main-contents">
+            <!-- ------------------Content-------------------------------- -->
+            <h1>StudyCreate</h1>
+            <form action="/Study/StudyCreate" method="get">
+                제목 : <input id="inputTitle" type="text" name="title"> <br>
+                <div id="inputTitle_check"></div>
+                작성자 : <input id="inputWriter" type="text" name="writer"> <br>
+                <div id="inputWriter_check"></div>
+                <textarea id="inputContent" name="content"></textarea><br>
+                <div id="inputContent_check"></div>
+
+                <input type="submit" value="등록" onclick="return checkValue()">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

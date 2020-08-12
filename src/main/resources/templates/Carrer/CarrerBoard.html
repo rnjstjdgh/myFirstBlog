@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>CarrerBoard</title>
+    <link rel="stylesheet" , href="/CSS/index.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"/>
+    <link rel="stylesheet" href="/CSS/board.css">
+
+    <script src="/JS/jquery-3.4.1.min.js"></script>
+
+    <!--Load HTML Files-->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#header").load("header");
+            $("#leftSidebar").load("leftSidebar");
+        });
+    </script>
+</head>
+
+<body>
+<div id="header"></div>
+<div class="contents">
+    <div id="leftSidebar"></div>
+    <div class="main-contents-container">
+        <div class="main-contents">
+            <!-- ------------------Content-------------------------------- -->
+            <h1>CarrerBoard</h1>
+            <h2 th:text="${currentPageNum}"></h2>
+            <div id="wrap">
+                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/Carrer/CarrerCreate}">글쓰기</a>
+
+                <form action="/Carrer/CarrerSearch" method="GET">
+                    <div class="search">
+                        <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                    </div>
+
+                    <button>검색하기</button>
+                </form>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="one wide">번호</th>
+                        <th class="ten wide">글제목</th>
+                        <th class="two wide">작성자</th>
+                        <th class="three wide">작성일</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <!-- CONTENTS !-->
+                    <tr th:each="CarrerContent : ${CarrerContentDtoList}">
+                        <td>
+                            <span th:text="${CarrerContent.id}"></span>
+                        </td>
+                        <td>
+                            <a th:href="@{'/Carrer/CarrerShow/' + ${CarrerContent.id}}">
+                                <span th:text="${CarrerContent.title}"></span>
+                            </a>
+                        </td>
+                        <td>
+                            <span th:text="${CarrerContent.writer}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${#temporals.format(CarrerContent.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div>
+    <span th:each="pageNum : ${pageList}" th:inline="text">
+        <a th:href="@{'/Carrer/CarrerBoard?Page=' + ${pageNum}}">[[${pageNum}]]</a>
+    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

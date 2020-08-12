@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>StudyModify</title>
+    <link rel="stylesheet" , href="/CSS/index.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"/>
+
+    <script src="/JS/jquery-3.4.1.min.js"></script>
+    <script src="/JS/CreateContent.js"></script>
+
+    <!--Load HTML Files-->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#header").load("header");
+            $("#leftSidebar").load("leftSidebar");
+        });
+    </script>
+</head>
+<body>
+<div id="header"></div>
+<div class="contents">
+    <div id="leftSidebar"></div>
+    <div class="main-contents-container">
+        <div class="main-contents">
+            <!-- ------------------Content-------------------------------- -->
+            <h1>StudyModify</h1>
+            <form th:action="@{'/Study/StudyModifyUpdate/' + ${StudyContentDto.id}}" method="get">
+                <input type="hidden" name="_method" value="put"/>
+                <input type="hidden" name="id" th:value="${StudyContentDto.id}"/>
+
+                제목 : <input id="inputTitle" type="text" name="title" th:value="${StudyContentDto.title}"> <br>
+                <div id="inputTitle_check"></div>
+                작성자 : <input id="inputWriter" type="text" name="writer" th:value="${StudyContentDto.writer}"> <br>
+                <div id="inputWriter_check"></div>
+                <textarea id="inputContent" name="content" th:text="${StudyContentDto.content}"></textarea><br>
+                <div id="inputContentcheck"></div>
+
+                <input type="submit" value="수정" onclick="return checkValue()">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
