@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"/>
 
     <script src="/JS/jquery-3.4.1.min.js"></script>
-    <script src="/JS/CreateContent.js"></script>
-
     <!--Load HTML Files-->
     <script type="text/javascript">
         $(document).ready(function() {
@@ -17,6 +15,10 @@
             $("#leftSidebar").load("leftSidebar");
         });
     </script>
+    <!--rich text editor CDN    -->
+    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/ko.js"></script>
 </head>
 <body>
 <div id="header"></div>
@@ -34,13 +36,15 @@
                 <div id="inputTitle_check"></div>
                 작성자 : <input id="inputWriter" type="text" name="writer" th:value="${StudyContentDto.writer}"> <br>
                 <div id="inputWriter_check"></div>
-                <textarea id="inputContent" name="content" th:text="${StudyContentDto.content}"></textarea><br>
+                <textarea id="inputContent" name="content" ></textarea><br>
                 <div id="inputContentcheck"></div>
 
-                <input type="submit" value="수정" onclick="return checkValue()">
+                <input type="submit" value="수정" onclick="return checkValue__()">
             </form>
         </div>
     </div>
 </div>
 </body>
+<script th:src="|/JS/CreateContent_New.js|"></script>
+<script>editor.setContents("[[${StudyContentDto.content}]]");</script>
 </html>

@@ -1,8 +1,5 @@
-/**
- * ID : 'suneditor_sample'
- * ClassName : 'sun-eidtor'
- */
-    // ID or DOM object
+
+//rich text editor 로드
 const editor = SUNEDITOR.create((document.getElementById('inputContent') || 'inputContent'),{
         // All of the plugins are loaded in the "window.SUNEDITOR" object in dist/suneditor.min.js file
         // Insert options
@@ -10,6 +7,7 @@ const editor = SUNEDITOR.create((document.getElementById('inputContent') || 'inp
         lang: SUNEDITOR_LANG['ko']
     });
 document.getElementById('suneditor_inputContent').style.cssText = "width: auto";
+
 
 //제목, 작성자, 내용 빈칸 확인
 function checkValue__() {

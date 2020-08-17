@@ -5,7 +5,7 @@
     <title>DailyLifeShow</title>
     <link rel="stylesheet" , href="/CSS/index.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"/>
-
+    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
     <script src="/JS/jquery-3.4.1.min.js"></script>
 
     <!--Load HTML Files-->
@@ -28,7 +28,7 @@
             <h2 th:text="${dailyLifeContentDto.title}"></h2>
             <p th:inline="text">작성일 : [[${#temporals.format(dailyLifeContentDto.createDate, 'yyyy-MM-dd HH:mm')}]]</p>
 
-            <p th:text="${dailyLifeContentDto.content}"></p>
+            <div class="sun-editor-editable" th:utext="${dailyLifeContentDto.content}" style="width:1248px !important; border:1px solid #ccc; margin:10px auto !important; height:auto !important;"><p><br></p></div>
 
             <!-- 수정/삭제 -->
             <div sec:authorize="hasRole('ROLE_ADMIN')">
@@ -41,13 +41,6 @@
                     <button id="delete-btn">삭제</button>
                 </form>
             </div>
-
-            <script th:inline="javascript">
-                /*<![CDATA[*/
-                var dailyLifeContentDto = /*[[${dailyLifeContentDto}]]*/ "";
-                /*]]>*/
-            </script>
-            <script th:inline="javascript" th:src="@{/js/board.js}"></script>
         </div>
     </div>
 </div>
