@@ -6,11 +6,8 @@
     <title>CarrerCreate</title>
     <link rel="stylesheet" , href="/CSS/index.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"/>
-
     <script src="/JS/jquery-3.4.1.min.js"></script>
-
-    <script src="/JS/CreateContent.js"></script>
-
+<!--    <script src="/JS/CreateContent.js"></script>-->
     <!--Load HTML Files-->
     <script type="text/javascript">
         $(document).ready(function() {
@@ -18,7 +15,16 @@
             $("#leftSidebar").load("leftSidebar");
         });
     </script>
+
+    <!--rich text editor CDN    -->
+    <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/assets/css/suneditor-contents.css" rel="stylesheet"> -->
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
+    <!-- languages (Basic Language: English/en) -->
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/ko.js"></script>
 </head>
+
 <body>
 <div id="header"></div>
 <div class="contents">
@@ -32,13 +38,78 @@
                 <div id="inputTitle_check"></div>
                 작성자 : <input id="inputWriter" type="text" name="writer"> <br>
                 <div id="inputWriter_check"></div>
+
+                <!--rich text editor를 적용할 textbox 대상-->
                 <textarea id="inputContent" name="content"></textarea><br>
                 <div id="inputContent_check"></div>
 
-                <input type="submit" value="등록" onclick="return checkValue()">
+                <input type="submit" value="등록" onclick="return checkValue__()">
             </form>
         </div>
     </div>
 </div>
 </body>
+
+<script>
+    /**
+     * ID : 'suneditor_sample'
+     * ClassName : 'sun-eidtor'
+     */
+        // ID or DOM object
+    const editor = SUNEDITOR.create((document.getElementById('inputContent') || 'inputContent'),{
+            // All of the plugins are loaded in the "window.SUNEDITOR" object in dist/suneditor.min.js file
+            // Insert options
+            // Language global object (default: en)
+            lang: SUNEDITOR_LANG['ko']
+        });
+
+    //제목, 작성자, 내용 빈칸 확인
+    function checkValue__() {
+        var titleFlag = false;
+        var writerFlag = false;
+        var contentFlag = false;
+
+        //아이디 빈칸 확인
+        var title = $("#inputTitle").val();
+        if(title ==""){
+            $("#inputTitle_check").text("필수정보입니다.");
+            $("#inputTitle_check").css("color","red");
+        }
+        else{
+            titleFlag = true;
+            $("#inputTitle_check").text("");
+        }
+
+        //작성자 빈칸 확인
+        var writer = $("#inputWriter").val();
+        if(writer ==""){
+            $("#inputWriter_check").text("필수정보입니다.");
+            $("#inputWriter_check").css("color","red");
+        }
+        else{
+            writerFlag = true;
+            $("#inputWriter_check").text("");
+        }
+
+        //내용 빈칸 확인
+        //여기서 rich editor의 전체 html코드를 가져와야 한다.
+        const content = editor.getContents(true)
+        if(content == '<p><br></p>'){
+            $("#inputContent_check").text("필수정보입니다.");
+            $("#inputContent_check").css("color","red");
+        }
+        else{
+            contentFlag = true;
+            $("#inputContent_check").text("");
+            $("#inputContent").text(content);   //rich editor의 내용을 inputContent테그의 text에 적용해서 form 전송 가능하게 함
+        }
+        return titleFlag && writerFlag && contentFlag;
+    }
+
+</script>
+
+<script>
+    document.getElementById('suneditor_inputContent').style.cssText = "width: auto";
+</script>
+
 </html>
