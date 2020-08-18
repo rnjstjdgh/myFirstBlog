@@ -1,12 +1,52 @@
-
 //rich text editor 로드
 const editor = SUNEDITOR.create((document.getElementById('inputContent') || 'inputContent'),{
         // All of the plugins are loaded in the "window.SUNEDITOR" object in dist/suneditor.min.js file
         // Insert options
         // Language global object (default: en)
+        buttonList: [
+            ['undo', 'redo'],
+            ['font', 'fontSize', 'formatBlock'],
+            ['paragraphStyle', 'blockquote'],
+            ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
+            ['fontColor', 'hiliteColor', 'textStyle'],
+            ['removeFormat'],
+            '/', // Line break
+            ['outdent', 'indent'],
+            ['align', 'horizontalRule', 'list', 'lineHeight'],
+            ['table', 'link', 'image', 'video', 'audio' /** ,'math' */], // You must add the 'katex' library at options to use the 'math' plugin.
+            /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
+            ['fullScreen', 'showBlocks', 'codeView'],
+            ['preview', 'print'],
+            ['save', 'template']
+        ],
         lang: SUNEDITOR_LANG['ko']
     });
 document.getElementById('suneditor_inputContent').style.cssText = "width: auto";
+
+// const editor = SUNEDITOR.create((document.getElementById('inputContent') || 'inputContent'), {
+//     toolbarContainer : '#toolbar_container',
+//     showPathLabel : false,
+//     charCounter : true,
+//     maxCharCount : 720,
+//     width : 'auto',
+//     maxWidth : '700px',
+//     height : 'auto',
+//     minHeight : '200px',
+//     maxHeight: '350px',
+//     buttonList : [
+//         ['undo', 'redo', 'font', 'fontSize', 'formatBlock'],
+//         ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'removeFormat'],
+//         '/' // Line break
+//             ['fontColor', 'hiliteColor', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'table'],
+//         ['link', 'image', 'video', 'fullScreen', 'showBlocks', 'codeView', 'preview', 'print', 'save']
+//     ],
+//     callBackSave : function (contents) {
+//         console.log(contents);
+//     },
+//     lang: SUNEDITOR_LANG['ko']
+//
+// });
+// document.getElementById('suneditor_inputContent').style.cssText = "width: auto";
 
 
 //제목, 작성자, 내용 빈칸 확인

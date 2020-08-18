@@ -25,6 +25,7 @@ public class StudyContentEntity extends TimeEntity {
     @Column(length = 100, nullable = false)
     private String title;
 
+    @Lob
     @Column(nullable = false)
     private String content;
 

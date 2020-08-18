@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"/>
 
     <script src="/JS/jquery-3.4.1.min.js"></script>
+
     <!--Load HTML Files-->
     <script type="text/javascript">
         $(document).ready(function() {
@@ -19,6 +20,44 @@
     <link href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/ko.js"></script>
+
+    <!--rich text editor 플러그인    -->
+    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/FileBrowserPlugin.d.ts"> </script>
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/index.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/Module.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/Plugin.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/command/blockquote.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/SubmenuPlugin.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/dialog/audio.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/dialog/image.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/dialog/link.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/dialog/math.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/dialog/video.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/fileBrowser/imageGallery.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/modules/_colorPicker.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/modules/_notice.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/modules/component.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/modules/dialog.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/modules/fileBrowser.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/modules/fileManager.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/modules/index.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest1/src/plugins/modules/resizing.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/submenu/align.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/submenu/font.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/submenu/fontColor.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/submenu/fontSize.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/submenu/formatBlock.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/submenu/hiliteColor.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/submenu/horizontalRule.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/submenu/lineHeight.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/submenu/list.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/submenu/paragraphStyle.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/submenu/table.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/submenu/template.d.ts"> </script>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/plugins/submenu/textStyle.d.ts"> </script>-->
+
+
+
 </head>
 <body>
 <div id="header"></div>
@@ -36,11 +75,11 @@
                 <textarea id="inputContent" name="content"></textarea><br>
                 <div id="inputContent_check"></div>
 
-                <input type="submit" value="등록" onclick="return checkValue()">
+                <input type="submit" value="등록" onclick="return checkValue__()">
             </form>
         </div>
     </div>
 </div>
 </body>
-<script th:src="|/JS/CreateContent_New.js|"></script>
+<script th:src="|/JS/CreateContent_New.js?v=1.0.1.6|"></script>
 </html>
