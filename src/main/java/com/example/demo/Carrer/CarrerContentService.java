@@ -102,11 +102,11 @@ public class CarrerContentService {
                 .build();
     }
 
-    public Integer[] GetPageList(Integer currentPageNum){
+    public Integer[] GetPageList(Integer currentPageNum, String subCategory){
         Integer[] pageList = new Integer[BLOCK_PAGE_NUM_COUNT];
 
         //총 게시글 수
-        Double postTotalCount = Double.valueOf(this.GetCarrerContentCount());
+        Double postTotalCount = Double.valueOf(this.GetCarrerContentCount(subCategory));
 
         //총 게시글 수를 기준으로 계산한 마지막 페이지 번호 계산
         Integer totalLastPageNum = (int)(Math.ceil((postTotalCount/PAGE_POST_COUNT)));
@@ -115,9 +115,6 @@ public class CarrerContentService {
         Integer blockLastPageNum = (totalLastPageNum+1 > currentPageNum + BLOCK_PAGE_NUM_COUNT)
                 ? currentPageNum + BLOCK_PAGE_NUM_COUNT
                 : totalLastPageNum+1;
-
-        System.out.println(currentPageNum);
-        System.out.println(blockLastPageNum);
 
         //페이지 시작 번호 조정
         currentPageNum = (currentPageNum <=3)? 1:currentPageNum-2;
@@ -131,7 +128,10 @@ public class CarrerContentService {
 
 
     @Transactional
-    public Long GetCarrerContentCount() {
-        return carrerContentRepository.count();
+    public Long GetCarrerContentCount(String subCategory) {
+        if(subCategory == "total")
+            return carrerContentRepository.count();
+        else
+            return new Long(carrerContentRepository.findBySubCategory(subCategory).size());
     }
 }

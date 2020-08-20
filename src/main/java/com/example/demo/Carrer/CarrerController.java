@@ -29,13 +29,13 @@ public class CarrerController {
 
         List<CarrerContentDto> carrerContentDtoList;
         Integer[] pageList;
-        if(subCategory == null){
+        if(subCategory == null || subCategory.equals("") || subCategory.equals("null")){
             carrerContentDtoList = carrerContentService.GetCarrerContentList(pageNum, "total");
-            pageList = carrerContentService.GetPageList(pageNum);
+            pageList = carrerContentService.GetPageList(pageNum,"total");
         }
         else{
             carrerContentDtoList = carrerContentService.GetCarrerContentList(pageNum, subCategory);
-            pageList = carrerContentService.GetPageList(pageNum);
+            pageList = carrerContentService.GetPageList(pageNum,subCategory);
         }
 
         model.addAttribute("subCategory",subCategory);

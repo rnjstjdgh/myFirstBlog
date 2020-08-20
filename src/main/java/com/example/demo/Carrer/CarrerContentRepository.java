@@ -13,6 +13,7 @@ public interface CarrerContentRepository extends JpaRepository<CarrerContentEnti
 
     List<CarrerContentEntity> findBySubCategoryAndTitleContaining(String subCategory, String keyword);
 
-
     Page<CarrerContentEntity> findBySubCategory(String subCategory, Pageable createDate);
+
+    List<CarrerContentEntity> findBySubCategory(String subCategory);
 }
