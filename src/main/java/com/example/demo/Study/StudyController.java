@@ -84,14 +84,18 @@ public class StudyController {
         String subCategory = request.getParameter("subCategory");
 
         List<StudyContentDto> studyContentDtoList;
-        if (subCategory == "")
+        if (subCategory == "") {
             studyContentDtoList = studyContentService.SearchStudyContents(keyword, "total");
-        else
+            model.addAttribute("StudyContentDtoList", studyContentDtoList);
+            return "Study/StudyBoard";
+        }
+        else {
             studyContentDtoList = studyContentService.SearchStudyContents(keyword, subCategory);
+            model.addAttribute("StudyContentDtoList", studyContentDtoList);
+            model.addAttribute("subCategory",subCategory);
+            return "Study/StudyBoard";
+        }
 
-        model.addAttribute("StudyContentDtoList", studyContentDtoList);
-
-        return "Study/StudyBoard";
     }
 
 }

@@ -25,8 +25,13 @@
     <div class="main-contents-container">
         <div class="main-contents">
             <!-- ------------------Content-------------------------------- -->
-            <h1>StudyBoard</h1>
-            <h2 th:text="${currentPageNum}"></h2>
+            <div th:if="${#strings.isEmpty(subCategory)}">
+                <h1 th:text="공부"></h1>
+            </div>
+            <div th:if="${not #strings.isEmpty(subCategory)}">
+                <h1 th:text="'공부 >> ' + ${subCategory}"></h1>
+            </div>
+
             <div id="wrap">
                 <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/Study/StudyCreate}">글쓰기</a>
 

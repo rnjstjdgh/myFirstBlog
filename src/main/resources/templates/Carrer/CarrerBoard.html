@@ -26,8 +26,12 @@
     <div class="main-contents-container">
         <div class="main-contents">
             <!-- ------------------Content-------------------------------- -->
-            <h1>CarrerBoard</h1>
-            <h2 th:text="${currentPageNum}"></h2>
+            <div th:if="${#strings.isEmpty(subCategory)}">
+                <h1 th:text="커리어"></h1>
+            </div>
+            <div th:if="${not #strings.isEmpty(subCategory)}">
+                <h1 th:text="'커리어 >> ' + ${subCategory}"></h1>
+            </div>
             <div id="wrap">
                 <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/Carrer/CarrerCreate}">글쓰기</a>
 

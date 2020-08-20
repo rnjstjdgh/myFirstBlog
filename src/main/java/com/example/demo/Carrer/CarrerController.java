@@ -95,12 +95,16 @@ public class CarrerController {
         String subCategory = request.getParameter("subCategory");
 
         List<CarrerContentDto> carrerContentDtoList;
-        if (subCategory == "")
+        if (subCategory == "") {
             carrerContentDtoList = carrerContentService.SearchCarrerContents(keyword, "total");
-        else
+            model.addAttribute("CarrerContentDtoList", carrerContentDtoList);
+            return "Carrer/CarrerBoard";
+        }
+        else {
             carrerContentDtoList = carrerContentService.SearchCarrerContents(keyword, subCategory);
-
-        model.addAttribute("CarrerContentDtoList", carrerContentDtoList);
-        return "Carrer/CarrerBoard";
+            model.addAttribute("CarrerContentDtoList", carrerContentDtoList);
+            model.addAttribute("subCategory",subCategory);
+            return "Carrer/CarrerBoard";
+        }
     }
 }

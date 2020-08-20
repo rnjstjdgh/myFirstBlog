@@ -83,15 +83,17 @@ public class DailyLifeController {
         String subCategory = request.getParameter("subCategory");
 
         List<DailyLifeContentDto> dailyLifeContentDtoList;
-        if (subCategory == "")
-            dailyLifeContentDtoList = dailyLifeContentService.SearchDailyLifeContents(keyword,"total");
-        else
-            dailyLifeContentDtoList = dailyLifeContentService.SearchDailyLifeContents(keyword,subCategory);
-
-
-        model.addAttribute("dailyLifeContentDtoList", dailyLifeContentDtoList);
-
-        return "DailyLife/DailyLifeBoard";
+        if (subCategory == "") {
+            dailyLifeContentDtoList = dailyLifeContentService.SearchDailyLifeContents(keyword, "total");
+            model.addAttribute("dailyLifeContentDtoList", dailyLifeContentDtoList);
+            return "DailyLife/DailyLifeBoard";
+        }
+        else {
+            dailyLifeContentDtoList = dailyLifeContentService.SearchDailyLifeContents(keyword, subCategory);
+            model.addAttribute("dailyLifeContentDtoList", dailyLifeContentDtoList);
+            model.addAttribute("subCategory",subCategory);
+            return "DailyLife/DailyLifeBoard";
+        }
     }
 
 
