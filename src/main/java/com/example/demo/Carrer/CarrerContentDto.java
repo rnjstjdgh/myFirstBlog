@@ -15,6 +15,7 @@ public class CarrerContentDto {
     private String writer;
     private String title;
     private String content;
+    private String subCategory;
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
 
@@ -24,17 +25,20 @@ public class CarrerContentDto {
                 .writer(writer)
                 .title(title)
                 .content(content)
+                .subCategory(subCategory)
                 .build();
         return build;
     }
 
     @Builder
-    public CarrerContentDto(Long id, String title, String content, String writer, LocalDateTime createDate, LocalDateTime modifiedDate){
+    public CarrerContentDto(Long id, String title, String content, String writer,
+                            String subCategory, LocalDateTime createDate, LocalDateTime modifiedDate){
         this.id = id;
         this.writer = writer;
         this.title = title;
         this.content = content;
         this.createDate = createDate;
         this.modifiedDate = modifiedDate;
+        this.subCategory = subCategory;
     }
 }

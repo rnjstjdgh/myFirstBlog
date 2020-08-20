@@ -10,10 +10,39 @@
 <body>
     <div class="leftside">
         <ul class="sidebar-menu">
-            <li class = "sidevar-menu-li"><a href="/"><i class="fas fa-home"></i><span>홈</span></a></li>
-            <li class = "sidevar-menu-li"><a href="/DailyLife/DailyLifeBoard"><i class="far fa-calendar-minus"></i><span>일상</span></a></li>
-            <li class = "sidevar-menu-li"><a href="/Study/StudyBoard"><i class="far fa-chart-bar"></i><span>공부</span></a></li>
-            <li class = "sidevar-menu-li"><a href="/Carrer/CarrerBoard"><i class="far fa-chart-bar"></i><span>커리어</span></a></li>
+            <div th:each="category:${categoryList}">
+                <hr>
+                <div th:if="${category.category1.toString().equals('dailyLife')}">
+                    <li class = "sidevar-menu-li"><a href="/DailyLife/DailyLifeBoard"><span>일상</span></a></li>
+                    <div th:each="subCategory:${category.category2List}">
+                        <li class = "sidevar-menu-li">
+                            <a th:href="@{/DailyLife/DailyLifeBoard(subCategory=${subCategory})}">
+                                <i class="fas fa-arrow-right"></i><span th:text="${subCategory}"></span>
+                            </a>
+                        </li>
+                    </div>
+                </div>
+                <div th:if="${category.category1.toString().equals('study')}">
+                    <li class = "sidevar-menu-li"><a href="/Study/StudyBoard"><span>공부</span></a></li>
+                    <div th:each="subCategory:${category.category2List}">
+                        <li class = "sidevar-menu-li">
+                            <a th:href="@{/Study/StudyBoard(subCategory=${subCategory})}">
+                                <i class="fas fa-arrow-right"></i><span th:text="${subCategory}"></span>
+                            </a>
+                        </li>
+                    </div>
+                </div>
+                <div th:if="${category.category1.toString().equals('carrer')}">
+                    <li class = "sidevar-menu-li"><a href="/Carrer/CarrerBoard"><span>커리어</span></a></li>
+                    <div th:each="subCategory:${category.category2List}">
+                        <li class = "sidevar-menu-li">
+                            <a th:href="@{/Carrer/CarrerBoard(subCategory=${subCategory})}">
+                                <i class="fas fa-arrow-right"></i><span th:text="${subCategory}"></span>
+                            </a>
+                        </li>
+                    </div>
+                </div>
+            </div>
         </ul>
     </div>
 </body>

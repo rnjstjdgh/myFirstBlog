@@ -25,15 +25,19 @@ public class StudyContentEntity extends TimeEntity {
     @Column(length = 100, nullable = false)
     private String title;
 
+    @Column(length = 10, nullable = false)
+    private String subCategory;
+
     @Lob
     @Column(nullable = false)
     private String content;
 
     @Builder
-    public StudyContentEntity(Long id, String title, String content, String writer){
+    public StudyContentEntity(Long id, String title, String content, String writer,String subCategory){
         this.id = id;
         this.title = title;
         this.content = content;
         this.writer = writer;
+        this.subCategory = subCategory;
     }
 }

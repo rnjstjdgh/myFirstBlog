@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -16,10 +17,22 @@ public class StudyController {
     private StudyContentService studyContentService;
 
     @RequestMapping("/Study/StudyBoard")
-    public String ShowStudyBoard(Model model, @RequestParam(value = "Page",defaultValue = "1") Integer pageNum){
-        List<StudyContentDto> studyContentDtoList = studyContentService.GetStudyContentList(pageNum);
-        Integer[] pageList = studyContentService.GetPageList(pageNum);
+    public String ShowStudyBoard(Model model, @RequestParam(value = "Page",defaultValue = "1") Integer pageNum, HttpServletRequest request){
+        String subCategory = request.getParameter("subCategory");
 
+        List<StudyContentDto> studyContentDtoList;
+        Integer[] pageList;
+
+        if(subCategory == null){
+            studyContentDtoList = studyContentService.GetStudyContentList(pageNum,"total");
+            pageList = studyContentService.GetPageList(pageNum);
+        }
+        else{
+            studyContentDtoList = studyContentService.GetStudyContentList(pageNum, subCategory);
+            pageList = studyContentService.GetPageList(pageNum);
+        }
+
+        model.addAttribute("subCategory",subCategory);
         model.addAttribute("StudyContentDtoList",studyContentDtoList);
         model.addAttribute("pageList",pageList);
         model.addAttribute("currentPageNum",pageNum);
@@ -53,7 +66,7 @@ public class StudyController {
         return "Study/StudyModify";
     }
 
-    @PutMapping("/Study/StudyModifyUpdate/{contentId}")
+    @GetMapping("/Study/StudyModifyUpdate/{contentId}")
     public String ModifySingleStudyUpdate(StudyContentDto studyContentDto){
         studyContentService.SaveStudyContent(studyContentDto);
         return "redirect:/Study/StudyBoard";
@@ -67,9 +80,15 @@ public class StudyController {
     }
 
     @GetMapping("/Study/StudySearch")
-    public String SearchStudy(@RequestParam(value = "keyword") String keyword,Model model){
-        List<StudyContentDto> studyContentDtoList = studyContentService.SearchStudyContents(keyword);
-        System.out.println(studyContentDtoList.size());
+    public String SearchStudy(@RequestParam(value = "keyword") String keyword,Model model,HttpServletRequest request){
+        String subCategory = request.getParameter("subCategory");
+
+        List<StudyContentDto> studyContentDtoList;
+        if (subCategory == "")
+            studyContentDtoList = studyContentService.SearchStudyContents(keyword, "total");
+        else
+            studyContentDtoList = studyContentService.SearchStudyContents(keyword, subCategory);
+
         model.addAttribute("StudyContentDtoList", studyContentDtoList);
 
         return "Study/StudyBoard";

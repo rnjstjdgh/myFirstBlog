@@ -25,13 +25,18 @@ public class DailyLifeContentService {
     }
 
     @Transactional
-    public List<DailyLifeContentDto> GetDailyLifeContentList(Integer pageNum){
+    public List<DailyLifeContentDto> GetDailyLifeContentList(Integer pageNum,String subCategory){
 
-        Page<DailyLifeContentEntity> page = dailyLifeContentRepository
-                .findAll(
-                        PageRequest.of(pageNum-1,PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createDate")));
+        Page<DailyLifeContentEntity> page;
+        if(subCategory == "total")
+            page = dailyLifeContentRepository
+                    .findAll(
+                            PageRequest.of(pageNum-1,PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createDate")));
+        else
+            page = dailyLifeContentRepository
+                    .findBySubCategory(subCategory,
+                            PageRequest.of(pageNum-1,PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createDate")));
 
-//        List<DailyLifeContentEntity> dailyLifeContentEntities = dailyLifeContentRepository.findAll();
 
         List<DailyLifeContentEntity> dailyLifeContentEntities = page.getContent();
         List<DailyLifeContentDto> dailyLifeContentDtoList = new ArrayList<>();
@@ -73,8 +78,14 @@ public class DailyLifeContentService {
     }
 
     @Transactional
-    public List<DailyLifeContentDto> SearchDailyLifeContents(String keyword){
-        List<DailyLifeContentEntity> dailyLifeContentEntities = dailyLifeContentRepository.findByTitleContaining(keyword);
+    public List<DailyLifeContentDto> SearchDailyLifeContents(String keyword , String subCategory){
+        List<DailyLifeContentEntity> dailyLifeContentEntities;
+        if(subCategory == "total")
+            dailyLifeContentEntities = dailyLifeContentRepository.findByTitleContaining(keyword);
+        else
+            dailyLifeContentEntities = dailyLifeContentRepository.findBySubCategoryAndTitleContaining(subCategory, keyword);
+
+
         List<DailyLifeContentDto> dailyLifeContentDtoList = new ArrayList<>();
 
         if(dailyLifeContentEntities.isEmpty()) return dailyLifeContentDtoList;
@@ -92,6 +103,7 @@ public class DailyLifeContentService {
                 .title(dailyLifeContentEntity.getTitle())
                 .content(dailyLifeContentEntity.getContent())
                 .writer(dailyLifeContentEntity.getWriter())
+                .subCategory(dailyLifeContentEntity.getSubCategory())
                 .createDate(dailyLifeContentEntity.getCreateDate())
                 .build();
     }

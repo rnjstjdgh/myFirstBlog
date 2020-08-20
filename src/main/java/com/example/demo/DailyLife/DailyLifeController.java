@@ -1,11 +1,13 @@
 package com.example.demo.DailyLife;
 
+import com.example.demo.Carrer.CarrerContentDto;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -15,10 +17,21 @@ public class DailyLifeController {
     private DailyLifeContentService dailyLifeContentService;
 
     @RequestMapping("/DailyLife/DailyLifeBoard")
-    public String ShowDailyLifeBoard(Model model, @RequestParam(value = "Page",defaultValue = "1") Integer pageNum){
-        List<DailyLifeContentDto> dailyLifeContentDtoList = dailyLifeContentService.GetDailyLifeContentList(pageNum);
-        Integer[] pageList = dailyLifeContentService.GetPageList(pageNum);
+    public String ShowDailyLifeBoard(Model model, @RequestParam(value = "Page",defaultValue = "1") Integer pageNum, HttpServletRequest request){
+        String subCategory = request.getParameter("subCategory");
+        List<DailyLifeContentDto> dailyLifeContentDtoList;
+        Integer[] pageList;
 
+        if(subCategory == null){
+            dailyLifeContentDtoList = dailyLifeContentService.GetDailyLifeContentList(pageNum, "total");
+            pageList = dailyLifeContentService.GetPageList(pageNum);
+        }
+        else{
+            dailyLifeContentDtoList = dailyLifeContentService.GetDailyLifeContentList(pageNum, subCategory);
+            pageList = dailyLifeContentService.GetPageList(pageNum);
+        }
+
+        model.addAttribute("subCategory",subCategory);
         model.addAttribute("dailyLifeContentDtoList",dailyLifeContentDtoList);
         model.addAttribute("pageList",pageList);
         model.addAttribute("currentPageNum",pageNum);
@@ -66,9 +79,16 @@ public class DailyLifeController {
     }
 
     @GetMapping("/DailyLife/DailyLifeSearch")
-    public String SearchDailyLife(@RequestParam(value = "keyword") String keyword,Model model){
-        List<DailyLifeContentDto> dailyLifeContentDtoList = dailyLifeContentService.SearchDailyLifeContents(keyword);
-        System.out.println(dailyLifeContentDtoList.size());
+    public String SearchDailyLife(@RequestParam(value = "keyword") String keyword,Model model,HttpServletRequest request){
+        String subCategory = request.getParameter("subCategory");
+
+        List<DailyLifeContentDto> dailyLifeContentDtoList;
+        if (subCategory == "")
+            dailyLifeContentDtoList = dailyLifeContentService.SearchDailyLifeContents(keyword,"total");
+        else
+            dailyLifeContentDtoList = dailyLifeContentService.SearchDailyLifeContents(keyword,subCategory);
+
+
         model.addAttribute("dailyLifeContentDtoList", dailyLifeContentDtoList);
 
         return "DailyLife/DailyLifeBoard";

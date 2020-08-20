@@ -28,17 +28,19 @@ public class CarrerContentService {
     }
 
     @Transactional
-    public List<CarrerContentDto> GetCarrerContentList(Integer pageNum){
-
-        Page<CarrerContentEntity> page = carrerContentRepository.
-                findAll(
-                        PageRequest.of(pageNum-1,PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createDate")));
-
-//        List<DailyLifeContentEntity> dailyLifeContentEntities = dailyLifeContentRepository.findAll();
+    public List<CarrerContentDto> GetCarrerContentList(Integer pageNum, String subCategory){
+        Page<CarrerContentEntity> page;
+        if(subCategory == "total")
+            page = carrerContentRepository.
+                    findAll(
+                            PageRequest.of(pageNum-1,PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createDate")));
+        else
+            page = carrerContentRepository.
+                    findBySubCategory(subCategory,
+                            PageRequest.of(pageNum-1,PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createDate")));
 
         List<CarrerContentEntity> carrerContentEntities = page.getContent();
         List<CarrerContentDto> carrerContentDtoList = new ArrayList<>();
-
         for(CarrerContentEntity carrerContentEntity : carrerContentEntities){
 
             carrerContentDtoList.add(this.convertEntityToDto(carrerContentEntity));
@@ -46,6 +48,8 @@ public class CarrerContentService {
         }
         return carrerContentDtoList;
     }
+
+
 
     @Transactional
     public CarrerContentDto GetContent(Long id){
@@ -68,8 +72,14 @@ public class CarrerContentService {
     }
 
     @Transactional
-    public List<CarrerContentDto> SearchCarrerContents(String keyword){
-        List<CarrerContentEntity> carrerContentEntities = carrerContentRepository.findByTitleContaining(keyword);
+    public List<CarrerContentDto> SearchCarrerContents(String keyword, String subCategory){
+        List<CarrerContentEntity> carrerContentEntities;
+
+        if(subCategory == "total")
+            carrerContentEntities = carrerContentRepository.findByTitleContaining(keyword);
+        else
+            carrerContentEntities = carrerContentRepository.findBySubCategoryAndTitleContaining(subCategory,keyword);
+
         List<CarrerContentDto> carrerContentDtoList = new ArrayList<>();
 
         if(carrerContentEntities.isEmpty()) return carrerContentDtoList;
@@ -87,6 +97,7 @@ public class CarrerContentService {
                 .title(carrerContentEntity.getTitle())
                 .content(carrerContentEntity.getContent())
                 .writer(carrerContentEntity.getWriter())
+                .subCategory(carrerContentEntity.getSubCategory())
                 .createDate(carrerContentEntity.getCreateDate())
                 .build();
     }

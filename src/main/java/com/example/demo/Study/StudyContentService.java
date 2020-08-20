@@ -28,13 +28,17 @@ public class StudyContentService {
     }
 
     @Transactional
-    public List<StudyContentDto> GetStudyContentList(Integer pageNum){
+    public List<StudyContentDto> GetStudyContentList(Integer pageNum,String subCategory){
 
-        Page<StudyContentEntity> page = studyContentRepository.
-                findAll(
-                        PageRequest.of(pageNum-1,PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createDate")));
-
-//        List<DailyLifeContentEntity> dailyLifeContentEntities = dailyLifeContentRepository.findAll();
+        Page<StudyContentEntity> page;
+        if(subCategory == "total")
+            page = studyContentRepository.
+                    findAll(
+                            PageRequest.of(pageNum-1,PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createDate")));
+        else
+            page = studyContentRepository.
+                    findBySubCategory(subCategory,
+                            PageRequest.of(pageNum-1,PAGE_POST_COUNT, Sort.by(Sort.Direction.ASC, "createDate")));
 
         List<StudyContentEntity> studyContentEntities = page.getContent();
         List<StudyContentDto> studyContentDtoList = new ArrayList<>();
@@ -68,8 +72,13 @@ public class StudyContentService {
     }
 
     @Transactional
-    public List<StudyContentDto> SearchStudyContents(String keyword){
-        List<StudyContentEntity> studyContentEntities = studyContentRepository.findByTitleContaining(keyword);
+    public List<StudyContentDto> SearchStudyContents(String keyword, String subCategory){
+        List<StudyContentEntity> studyContentEntities;
+        if (subCategory == "total")
+            studyContentEntities = studyContentRepository.findByTitleContaining(keyword);
+        else
+            studyContentEntities = studyContentRepository.findBySubCategoryAndTitleContaining(subCategory, keyword);
+
         List<StudyContentDto> studyContentDtoList = new ArrayList<>();
 
         if(studyContentEntities.isEmpty()) return studyContentDtoList;
@@ -87,6 +96,7 @@ public class StudyContentService {
                 .title(studyContentEntity.getTitle())
                 .content(studyContentEntity.getContent())
                 .writer(studyContentEntity.getWriter())
+                .subCategory(studyContentEntity.getSubCategory())
                 .createDate(studyContentEntity.getCreateDate())
                 .build();
     }

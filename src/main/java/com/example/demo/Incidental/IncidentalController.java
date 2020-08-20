@@ -1,11 +1,21 @@
 package com.example.demo.Incidental;
 
+import com.example.demo.Category.CategoryDto;
+import com.example.demo.Category.CategoryService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 public class IncidentalController {
+
+    @Autowired
+    CategoryService categoryService;
 
     @GetMapping("/")
     public String index(){
@@ -13,7 +23,12 @@ public class IncidentalController {
     }
 
     @RequestMapping("/leftSidebar")
-    public String loadSidebar() {
+    public String loadSidebar(Model model) {
+        //카테고리를 다 가져와서 leftSidebar에 다 전달해줘야한다.
+        List<CategoryDto> categoryDtoList = categoryService.GetCategoryList();
+
+        model.addAttribute("categoryList",categoryDtoList);
+
         return "/Incidental/leftSidebar";
     }
 
@@ -24,7 +39,10 @@ public class IncidentalController {
 
 
     @RequestMapping("/DailyLife/leftSidebar")
-    public String DailyLife_loadSidebar1() {
+    public String DailyLife_loadSidebar1(Model model) {
+        List<CategoryDto> categoryDtoList = categoryService.GetCategoryList();
+
+        model.addAttribute("categoryList",categoryDtoList);
         return "/Incidental/leftSidebar";
     }
 
@@ -34,7 +52,10 @@ public class IncidentalController {
     }
 
     @RequestMapping("/DailyLife/DailyLifeShow/leftSidebar")
-    public String DailyLife_loadSidebar2() {
+    public String DailyLife_loadSidebar2(Model model) {
+        List<CategoryDto> categoryDtoList = categoryService.GetCategoryList();
+
+        model.addAttribute("categoryList",categoryDtoList);
         return "/Incidental/leftSidebar";
     }
 
@@ -44,7 +65,10 @@ public class IncidentalController {
     }
 
     @RequestMapping("/DailyLife/DailyLifeModify/leftSidebar")
-    public String DailyLife_loadSidebar3() {
+    public String DailyLife_loadSidebar3(Model model) {
+        List<CategoryDto> categoryDtoList = categoryService.GetCategoryList();
+
+        model.addAttribute("categoryList",categoryDtoList);
         return "/Incidental/leftSidebar";
     }
 
@@ -54,7 +78,10 @@ public class IncidentalController {
     }
 
     @RequestMapping("/Carrer/leftSidebar")
-    public String Carrer_loadSidebar1() {
+    public String Carrer_loadSidebar1(Model model) {
+        List<CategoryDto> categoryDtoList = categoryService.GetCategoryList();
+
+        model.addAttribute("categoryList",categoryDtoList);
         return "/Incidental/leftSidebar";
     }
 
@@ -64,7 +91,10 @@ public class IncidentalController {
     }
 
     @RequestMapping("/Carrer/CarrerShow/leftSidebar")
-    public String Carrer_loadSidebar2() {
+    public String Carrer_loadSidebar2(Model model) {
+        List<CategoryDto> categoryDtoList = categoryService.GetCategoryList();
+
+        model.addAttribute("categoryList",categoryDtoList);
         return "/Incidental/leftSidebar";
     }
 
@@ -74,7 +104,10 @@ public class IncidentalController {
     }
 
     @RequestMapping("/Carrer/CarrerModify/leftSidebar")
-    public String Carrer_loadSidebar3() {
+    public String Carrer_loadSidebar3(Model model) {
+        List<CategoryDto> categoryDtoList = categoryService.GetCategoryList();
+
+        model.addAttribute("categoryList",categoryDtoList);
         return "/Incidental/leftSidebar";
     }
 
@@ -84,7 +117,10 @@ public class IncidentalController {
     }
 
     @RequestMapping("/Study/leftSidebar")
-    public String Study_loadSidebar1() {
+    public String Study_loadSidebar1(Model model) {
+        List<CategoryDto> categoryDtoList = categoryService.GetCategoryList();
+
+        model.addAttribute("categoryList",categoryDtoList);
         return "/Incidental/leftSidebar";
     }
 
@@ -94,7 +130,10 @@ public class IncidentalController {
     }
 
     @RequestMapping("/Study/StudyShow/leftSidebar")
-    public String Study_loadSidebar2() {
+    public String Study_loadSidebar2(Model model) {
+        List<CategoryDto> categoryDtoList = categoryService.GetCategoryList();
+
+        model.addAttribute("categoryList",categoryDtoList);
         return "/Incidental/leftSidebar";
     }
 
@@ -104,7 +143,10 @@ public class IncidentalController {
     }
 
     @RequestMapping("/Study/StudyModify/leftSidebar")
-    public String Study_loadSidebar3() {
+    public String Study_loadSidebar3(Model model) {
+        List<CategoryDto> categoryDtoList = categoryService.GetCategoryList();
+
+        model.addAttribute("categoryList",categoryDtoList);
         return "/Incidental/leftSidebar";
     }
 

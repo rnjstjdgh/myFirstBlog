@@ -25,16 +25,20 @@ public class DailyLifeContentEntity extends TimeEntity {
     @Column(length = 100, nullable = false)
     private String title;
 
+    @Column(length = 10, nullable = false)
+    private String subCategory;
+
     @Lob
     @Column(nullable = false)
     private String content;
 
     @Builder
-    public DailyLifeContentEntity(Long id, String title, String content, String writer){
+    public DailyLifeContentEntity(Long id, String title, String content, String writer, String subCategory){
         this.id = id;
         this.title = title;
         this.content = content;
         this.writer = writer;
+        this.subCategory = subCategory;
     }
 
 }
