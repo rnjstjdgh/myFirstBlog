@@ -22,13 +22,13 @@ public class DailyLifeController {
         List<DailyLifeContentDto> dailyLifeContentDtoList;
         Integer[] pageList;
 
-        if(subCategory == null){
+        if(subCategory == null || subCategory.equals("") || subCategory.equals("null")){
             dailyLifeContentDtoList = dailyLifeContentService.GetDailyLifeContentList(pageNum, "total");
-            pageList = dailyLifeContentService.GetPageList(pageNum);
+            pageList = dailyLifeContentService.GetPageList(pageNum,"total");
         }
         else{
             dailyLifeContentDtoList = dailyLifeContentService.GetDailyLifeContentList(pageNum, subCategory);
-            pageList = dailyLifeContentService.GetPageList(pageNum);
+            pageList = dailyLifeContentService.GetPageList(pageNum,subCategory);
         }
 
         model.addAttribute("subCategory",subCategory);

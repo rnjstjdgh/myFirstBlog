@@ -23,13 +23,13 @@ public class StudyController {
         List<StudyContentDto> studyContentDtoList;
         Integer[] pageList;
 
-        if(subCategory == null){
+        if(subCategory == null|| subCategory.equals("") || subCategory.equals("null")){
             studyContentDtoList = studyContentService.GetStudyContentList(pageNum,"total");
-            pageList = studyContentService.GetPageList(pageNum);
+            pageList = studyContentService.GetPageList(pageNum, "total");
         }
         else{
             studyContentDtoList = studyContentService.GetStudyContentList(pageNum, subCategory);
-            pageList = studyContentService.GetPageList(pageNum);
+            pageList = studyContentService.GetPageList(pageNum,subCategory);
         }
 
         model.addAttribute("subCategory",subCategory);

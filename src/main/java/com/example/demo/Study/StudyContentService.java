@@ -101,11 +101,11 @@ public class StudyContentService {
                 .build();
     }
 
-    public Integer[] GetPageList(Integer currentPageNum){
+    public Integer[] GetPageList(Integer currentPageNum, String subCategory){
         Integer[] pageList = new Integer[BLOCK_PAGE_NUM_COUNT];
 
         //총 게시글 수
-        Double postTotalCount = Double.valueOf(this.GetStudyContentCount());
+        Double postTotalCount = Double.valueOf(this.GetStudyContentCount(subCategory));
 
         //총 게시글 수를 기준으로 계산한 마지막 페이지 번호 계산
         Integer totalLastPageNum = (int)(Math.ceil((postTotalCount/PAGE_POST_COUNT)));
@@ -130,7 +130,10 @@ public class StudyContentService {
 
 
     @Transactional
-    public Long GetStudyContentCount() {
-        return studyContentRepository.count();
+    public Long GetStudyContentCount(String subCategory) {
+        if (subCategory == "total")
+            return studyContentRepository.count();
+        else
+            return new Long(studyContentRepository.findBySubCategory(subCategory).size());
     }
 }

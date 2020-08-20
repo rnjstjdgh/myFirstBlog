@@ -15,5 +15,5 @@ public interface DailyLifeContentRepository extends JpaRepository<DailyLifeConte
 
     List<DailyLifeContentEntity> findBySubCategoryAndTitleContaining(String subCategory, String keyword);
 
-
+    List<DailyLifeContentEntity> findBySubCategory(String subCategory);
 }

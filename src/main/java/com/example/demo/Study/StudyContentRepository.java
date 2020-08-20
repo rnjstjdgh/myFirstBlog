@@ -15,4 +15,5 @@ public interface StudyContentRepository extends JpaRepository<StudyContentEntity
 
     List<StudyContentEntity> findBySubCategoryAndTitleContaining(String subCategory, String keyword);
 
+    List<StudyContentEntity> findBySubCategory(String subCategory);
 }

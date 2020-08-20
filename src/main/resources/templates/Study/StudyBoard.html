@@ -76,7 +76,7 @@
 
                 <div>
     <span th:each="pageNum : ${pageList}" th:inline="text">
-        <a th:href="@{'/Study/StudyBoard?Page=' + ${pageNum}}">[[${pageNum}]]</a>
+        <a th:href="@{'/Study/StudyBoard?Page=' + ${pageNum} + '&subCategory=' + ${subCategory}}">[[${pageNum}]]</a>
     </span>
         </div>
     </div>

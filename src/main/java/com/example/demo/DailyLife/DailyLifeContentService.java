@@ -108,11 +108,11 @@ public class DailyLifeContentService {
                 .build();
     }
 
-    public Integer[] GetPageList(Integer currentPageNum){
+    public Integer[] GetPageList(Integer currentPageNum, String subCategory){
         Integer[] pageList = new Integer[BLOCK_PAGE_NUM_COUNT];
 
         //총 게시글 수
-        Double postTotalCount = Double.valueOf(this.GetDailyLifeContentCount());
+        Double postTotalCount = Double.valueOf(this.GetDailyLifeContentCount(subCategory));
 
         //총 게시글 수를 기준으로 계산한 마지막 페이지 번호 계산
         Integer totalLastPageNum = (int)(Math.ceil((postTotalCount/PAGE_POST_COUNT)));
@@ -137,8 +137,11 @@ public class DailyLifeContentService {
 
 
     @Transactional
-    public Long GetDailyLifeContentCount() {
-        return dailyLifeContentRepository.count();
+    public Long GetDailyLifeContentCount(String subCategory) {
+        if(subCategory == "total")
+            return dailyLifeContentRepository.count();
+        else
+            return new Long(dailyLifeContentRepository.findBySubCategory(subCategory).size());
     }
 
 }
