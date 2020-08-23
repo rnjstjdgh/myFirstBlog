@@ -30,9 +30,9 @@ public class StudyController {
         else{
             studyContentDtoList = studyContentService.GetStudyContentList(pageNum, subCategory);
             pageList = studyContentService.GetPageList(pageNum,subCategory);
+            model.addAttribute("subCategory",subCategory);
         }
 
-        model.addAttribute("subCategory",subCategory);
         model.addAttribute("StudyContentDtoList",studyContentDtoList);
         model.addAttribute("pageList",pageList);
         model.addAttribute("currentPageNum",pageNum);

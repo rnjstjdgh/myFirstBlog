@@ -29,9 +29,9 @@ public class DailyLifeController {
         else{
             dailyLifeContentDtoList = dailyLifeContentService.GetDailyLifeContentList(pageNum, subCategory);
             pageList = dailyLifeContentService.GetPageList(pageNum,subCategory);
+            model.addAttribute("subCategory",subCategory);
         }
 
-        model.addAttribute("subCategory",subCategory);
         model.addAttribute("dailyLifeContentDtoList",dailyLifeContentDtoList);
         model.addAttribute("pageList",pageList);
         model.addAttribute("currentPageNum",pageNum);

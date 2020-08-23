@@ -36,9 +36,9 @@ public class CarrerController {
         else{
             carrerContentDtoList = carrerContentService.GetCarrerContentList(pageNum, subCategory);
             pageList = carrerContentService.GetPageList(pageNum,subCategory);
+            model.addAttribute("subCategory",subCategory);
         }
 
-        model.addAttribute("subCategory",subCategory);
         model.addAttribute("CarrerContentDtoList",carrerContentDtoList);
         model.addAttribute("pageList",pageList);
         model.addAttribute("currentPageNum",pageNum);

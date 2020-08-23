@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/CSS/board.css">
 
     <script src="/JS/jquery-3.4.1.min.js"></script>
+    <script src="/JS/ContentBoard.js"></script>
 
     <!--Load HTML Files-->
     <script type="text/javascript">
@@ -37,11 +38,11 @@
 
                 <form action="/Carrer/CarrerSearch" method="GET">
                     <div class="search">
-                        <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                        <input name="keyword" id="keywordStr" type="text" placeholder="검색어를 입력해주세요">
                         <input name="subCategory" type="hidden" th:value="${subCategory}">
                     </div>
-
-                    <button>검색하기</button>
+                    <button onclick="return checkKeywordEmpty()">검색하기</button>
+                    <div id="inputKeyword_check"></div>
                 </form>
 
                 <table>
@@ -89,4 +90,6 @@
     </div>
 </div>
 </body>
+<!--<script scr="/JS/ContentBoard.js"></script>-->
+
 </html>
