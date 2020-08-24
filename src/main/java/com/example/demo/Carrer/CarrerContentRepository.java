@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CarrerContentRepository extends JpaRepository<CarrerContentEntity,Long> {
     List<CarrerContentEntity> findByTitleContaining(String keyword);
@@ -16,4 +17,6 @@ public interface CarrerContentRepository extends JpaRepository<CarrerContentEnti
     Page<CarrerContentEntity> findBySubCategory(String subCategory, Pageable createDate);
 
     List<CarrerContentEntity> findBySubCategory(String subCategory);
+
+    List<CarrerContentEntity> findByTitle(String title);
 }

@@ -134,4 +134,12 @@ public class CarrerContentService {
         else
             return new Long(carrerContentRepository.findBySubCategory(subCategory).size());
     }
+
+    @Transactional
+    public Long titleOverlapCheck(String title){
+        if(carrerContentRepository.findByTitle(title).size() != 0)
+            return new Long(1);
+        else
+            return new Long(-1);
+    }
 }

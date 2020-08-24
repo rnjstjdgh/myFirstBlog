@@ -23,39 +23,14 @@ const editor = SUNEDITOR.create((document.getElementById('inputContent') || 'inp
     });
 document.getElementById('suneditor_inputContent').style.cssText = "width: auto";
 
-// const editor = SUNEDITOR.create((document.getElementById('inputContent') || 'inputContent'), {
-//     toolbarContainer : '#toolbar_container',
-//     showPathLabel : false,
-//     charCounter : true,
-//     maxCharCount : 720,
-//     width : 'auto',
-//     maxWidth : '700px',
-//     height : 'auto',
-//     minHeight : '200px',
-//     maxHeight: '350px',
-//     buttonList : [
-//         ['undo', 'redo', 'font', 'fontSize', 'formatBlock'],
-//         ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript', 'removeFormat'],
-//         '/' // Line break
-//             ['fontColor', 'hiliteColor', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'table'],
-//         ['link', 'image', 'video', 'fullScreen', 'showBlocks', 'codeView', 'preview', 'print', 'save']
-//     ],
-//     callBackSave : function (contents) {
-//         console.log(contents);
-//     },
-//     lang: SUNEDITOR_LANG['ko']
-//
-// });
-// document.getElementById('suneditor_inputContent').style.cssText = "width: auto";
-
-
 //제목, 작성자, 내용 빈칸 확인
 function checkValue__() {
     var titleFlag = false;
+    var titleOverlapFalg = false;
     var writerFlag = false;
     var contentFlag = false;
 
-    //아이디 빈칸 확인
+    //제목 빈칸 확인
     var title = $("#inputTitle").val();
     if(title ==""){
         $("#inputTitle_check").text("필수정보입니다.");
@@ -63,7 +38,21 @@ function checkValue__() {
     }
     else{
         titleFlag = true;
-        $("#inputTitle_check").text("");
+        //제목이 빈칸이 아니라면 => 이제 여기서 중복검사 해야한다.
+        $.ajax({
+            url:'/Carrer/CarrerCreate/titleOverlapCheck?title='+title,
+            type: 'get',
+            success : function (data) {
+                if(data == 1){
+                    $("#inputTitle_check").text("중복된 제목입니다.(해당 카테고리에 해당 제목이 이미 존재합니다)");
+                    $("#inputTitle_check").css("color","red");
+                }
+                else {
+                    titleOverlapFalg = true;
+                    $("#inputTitle_check").text("");
+                }
+            }
+        })
     }
 
     //작성자 빈칸 확인
@@ -89,5 +78,5 @@ function checkValue__() {
         $("#inputContent_check").text("");
         $("#inputContent").text(content);   //rich editor의 내용을 inputContent테그의 text에 적용해서 form 전송 가능하게 함
     }
-    return titleFlag && writerFlag && contentFlag;
+    return titleFlag && writerFlag && contentFlag && titleOverlapFalg;
 }

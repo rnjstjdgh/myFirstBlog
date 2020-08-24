@@ -66,8 +66,18 @@ public class CarrerController {
             carrerContentService.SaveCarrerContent(carrerContentDto);
             return "redirect:/Carrer/CarrerBoard";
         }
-
     }
+
+    @GetMapping("/Carrer/CarrerCreate/titleOverlapCheck")
+    @ResponseBody
+    public Long titleCheck(HttpServletRequest request){
+        String title = request.getParameter("title");
+
+        Long isPresent = carrerContentService.titleOverlapCheck(title);
+        return isPresent;
+    }
+
+
 
     @GetMapping("/Carrer/CarrerModify/{contentId}")
     public String ModifySingleCarrerShow(@PathVariable("contentId") Long id,Model model){
@@ -107,4 +117,6 @@ public class CarrerController {
             return "Carrer/CarrerBoard";
         }
     }
+
+
 }
